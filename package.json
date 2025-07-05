@@ -11,11 +11,14 @@
     "dev:server": "nodemon src/server/server.js",
     "start": "node src/server/server.js",
     "build:full": "npm run build && npm run start",
-    "postbuild": "cp -r dist/* src/server/public/ || xcopy dist src\\server\\public\\ /E /I /Y"
+    "postbuild": "cp -r dist/* src/server/public/ || xcopy dist src\\server\\public\\ /E /I /Y",
+    "render:build": "npm install && npm run build && npx prisma generate",
+    "render:start": "npx prisma migrate deploy && npm start"
   },
   "dependencies": {
     "@heroicons/react": "^2.1.1",
     "@hookform/resolvers": "^3.3.4",
+    "@prisma/client": "^5.7.0",
     "axios": "^1.6.2",
     "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
@@ -38,7 +41,6 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.9.1",
-    "@prisma/client": "^5.7.0",
     "@vitejs/plugin-react": "^4.3.1",
     "autoprefixer": "^10.4.18",
     "eslint": "^9.9.1",
@@ -50,7 +52,7 @@
     "postcss": "^8.4.35",
     "prisma": "^5.7.0",
     "tailwindcss": "^3.4.1",
-    "vite": "^6.3.5"
+    "vite": "^5.4.2"
   },
   "engines": {
     "node": ">=18.0.0"
