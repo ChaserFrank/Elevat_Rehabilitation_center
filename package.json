@@ -11,7 +11,7 @@
     "dev:server": "nodemon src/server/server.js",
     "start": "node src/server/server.js",
     "build:full": "npm run build && npm run start",
-    "postbuild": "cp -r dist/* src/server/public/ || xcopy dist src\\server\\public\\ /E /I /Y",
+    "postbuild": "mkdir -p src/server/public && cp -r dist/* src/server/public/",
     "render:build": "npm install && npm run build && npx prisma generate",
     "render:start": "npx prisma migrate deploy && npm start"
   },

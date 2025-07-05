@@ -14,15 +14,15 @@ RUN npm install
 COPY . .
 
 # Build the React frontend
-RUN npm run build
+RUN mkdir -p src/server/public && npm run build
 
 # Create non-root user for security
 RUN addgroup -g 1001 -S nodejs
-RUN adduser -S Elevat Rehabilitation Center -u 1001
+RUN adduser -S admin -u 1001
 
 # Change ownership of the app directory
-RUN chown -R Elevat Rehabilitation Center:nodejs /app
-USER Elevat Rehabilitation Center
+RUN chown -R admin:nodejs /app
+USER elevatuser
 
 # Expose port
 EXPOSE 5000
