@@ -8,10 +8,18 @@ pnpm-debug.log*
 lerna-debug.log*
 
 .env
-node_modules
 dist
 dist-ssr
 *.local
+
+# Ignore everything in node_modules...
+node_modules/
+
+# ...except Prisma client
+!node_modules/.prisma/
+!node_modules/@prisma/
+!node_modules/@prisma/client/
+
 
 # Editor directories and files
 .vscode/*
