@@ -3,7 +3,8 @@ services:
     name: elevat-backend
     env: node
     plan: starter
-    buildCommand: npm install && npx prisma generate
+    rootDir: server
+    buildCommand: npm install
     startCommand: npx prisma migrate deploy && npm start
     envVars:
       - key: NODE_ENV
