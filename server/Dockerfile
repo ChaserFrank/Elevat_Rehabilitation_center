@@ -30,7 +30,9 @@ RUN adduser -S elevatrehabilitationcenter -u 1001
 # Change ownership of the app directory
 RUN chown -R elevatrehabilitationcenter:nodejs /app
 # Add this before USER elevatuser
-RUN adduser -D elevatrehabilitationcenter
+RUN adduser -D elevatuser
+
+USER elevatuser
 USER elevatrehabilitationcenter
 
 # Expose port
