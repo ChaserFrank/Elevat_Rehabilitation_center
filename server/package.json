@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "nodemon server.js",
     "start": "node server.js",
+    "postinstall": "prisma generate",
     "build": "npm install && npx prisma generate --schema=prisma/schema.prisma",
     "render:build": "npm install && npx prisma generate",
     "render:start": "npx prisma migrate deploy && npm start"
@@ -24,7 +25,7 @@
   },
   "devDependencies": {
     "nodemon": "^3.0.2",
-    "prisma": "^6.11.1"
+    "prisma": "^5.7.0"
   },
   "engines": {
     "node": ">=18.0.0"
