@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "nodemon src/server/server.js",
     "start": "node src/server/server.js",
-    "build": "npm install && npx prisma generate --schema=./prisma/schema.prisma",
+    "build": "npm install && npx prisma generate --schema=src/server/prisma/schema.prisma",
     "render:build": "npm install && npx prisma generate",
     "render:start": "npx prisma migrate deploy && npm start"
   },
