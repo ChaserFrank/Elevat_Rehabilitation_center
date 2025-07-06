@@ -27,10 +27,13 @@ RUN npx prisma generate --schema=prisma/schema.prisma
 # If this backend-only, remove the next line
 # RUN npm run build
 
-# Create non-root user and group for security (Debian syntax)
-RUN addgroup --gid 1001 nodejs \
-  && adduser --system --uid 1001 --ingroup nodejs elevatrehabilitationcenter \
-  && chown -R elevatrehabilitationcenter:nodejs /app
+# Create non-root user for security
+RUN addgroup --gid 1001 nodejs && \
+    adduser --uid 1001 --ingroup nodejs --disabled-password --gecos "" elevatrehabilitationcenter
+
+
+# Change ownership
+RUN chown -R elevatrehabilitationcenter:nodejs /app
 
 # Use non-root user
 USER elevatrehabilitationcenter
@@ -40,7 +43,7 @@ EXPOSE 5000
 
 # Health check (adjust path if needed)
 HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
-  CMD node healthcheck.js || exit 1
+    CMD node healthcheck.js || exit 1
 
 # Start backend service
 CMD ["npm", "start"]
