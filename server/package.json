@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
-    "dev": "nodemon src/server/server.js",
-    "start": "node src/server/server.js",
+    "dev": "nodemon server/server.js",
+    "start": "node server/server.js",
     "build": "npm install",
     "render:build": "npm install && npx prisma generate",
     "render:start": "npx prisma migrate deploy && npm start"
