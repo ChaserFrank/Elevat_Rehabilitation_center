@@ -1,6 +1,6 @@
 #This is my initial docker file:
 # Use Node.js 18 Alpine for smaller image size
-FROM node:18-alpine
+FROM node:18-alpine3.15
 
 # Set working directory
 WORKDIR /app
