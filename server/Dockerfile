@@ -6,7 +6,7 @@ FROM node:18-alpine
 WORKDIR /app
 
 # Add OpenSSL if needed
-RUN apk add --no-cache openssl1.1-compat
+RUN apk add --no-cache openssl1.1
 
 # Copy source code
 COPY . .
