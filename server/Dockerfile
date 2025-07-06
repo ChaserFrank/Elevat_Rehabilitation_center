@@ -4,40 +4,36 @@ FROM node:18-slim
 # Set working directory
 WORKDIR /app
 
-# Copy source code
-COPY . .
-
-# Copy package files
+# Copy package files first for better caching
 COPY package*.json ./
 
-# Install dependencies and generate Prisma client
-# RUN npm install
-RUN npx prisma generate --schema=prisma/schema.prisma
-
-# Install dependencies
+# Install production dependencies only
 RUN npm ci --only=production
 
-# Build the React frontend
-RUN npm run build
+# Copy source code (including prisma schema and rest of the app)
+COPY . .
 
-# Create non-root user for security
-RUN addgroup -g 1001 -S nodejs
-RUN adduser -S elevatrehabilitationcenter -u 1001
+# Generate Prisma client
+RUN npx prisma generate --schema=prisma/schema.prisma
 
-# Change ownership of the app directory
-RUN chown -R elevatrehabilitationcenter:nodejs /app
-# Add this before USER elevatuser
-RUN adduser -D elevatuser
+# Optional: build frontend if this is a full-stack app
+# If this backend-only, remove the next line
+# RUN npm run build
 
-USER elevatuser
+# Create non-root user and group for security (Debian syntax)
+RUN addgroup --gid 1001 nodejs \
+  && adduser --system --uid 1001 --ingroup nodejs elevatrehabilitationcenter \
+  && chown -R elevatrehabilitationcenter:nodejs /app
+
+# Use non-root user
 USER elevatrehabilitationcenter
 
-# Expose port
+# Expose backend port
 EXPOSE 5000
 
-# Health check
+# Health check (adjust path if needed)
 HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
-    CMD node healthcheck.js
+  CMD node healthcheck.js || exit 1
 
-# Start the application
+# Start backend service
 CMD ["npm", "start"]
