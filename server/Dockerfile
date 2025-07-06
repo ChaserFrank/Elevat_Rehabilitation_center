@@ -1,3 +1,4 @@
+#This is my initial docker file:
 # Use Node.js 18 Alpine for smaller image size
 FROM node:18-alpine
 
@@ -5,19 +6,17 @@ FROM node:18-alpine
 WORKDIR /app
 
 # Add OpenSSL if needed
-# RUN apk add --no-cache openssl1.1-compat
-
-
-# Copy package files
-COPY package*.json ./
-RUN npm install
-
-# Install dependencies and generate Prisma client
-RUN npm install
-RUN npx prisma generate --schema=prisma/schema.prisma
+RUN apk add --no-cache openssl1.1-compat
 
 # Copy source code
 COPY . .
+
+# Copy package files
+COPY package*.json ./
+
+# Install dependencies and generate Prisma client
+# RUN npm install
+RUN npx prisma generate --schema=prisma/schema.prisma
 
 # Install dependencies
 RUN npm ci --only=production

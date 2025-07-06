@@ -5,8 +5,8 @@
   "scripts": {
     "dev": "nodemon server.js",
     "start": "node server.js",
-    "postinstall": "prisma generate --schema=server/prisma/schema.prisma",
-    "build": "npm install && npx prisma generate --schema=server/prisma/schema.prisma",
+    "postinstall": "prisma generate --schema=prisma/schema.prisma",
+    "build": "npm install && npx prisma generate --schema=prisma/schema.prisma",
     "render:build": "npm install && npx prisma generate",
     "render:start": "npx prisma migrate deploy && npm start"
   },
@@ -19,7 +19,7 @@
     "helmet": "^7.1.0",
     "jsonwebtoken": "^9.0.2",
     "morgan": "^1.10.0",
-    "multer": "^1.4.5-lts.1",
+    "multer": "^2.0.1",
     "nodemailer": "^6.9.7",
     "pg": "^8.11.3"
   },
