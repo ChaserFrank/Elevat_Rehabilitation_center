@@ -7,6 +7,13 @@ WORKDIR /app
 # Copy package files first for better caching
 COPY package*.json ./
 
+# Copy prisma schema early so it's available for prisma generate
+COPY prisma ./prisma
+
+
+# Install OpenSSL required for Prisma (especially for Linux/debian)
+RUN apt-get update -y && apt-get install -y openssl
+
 # Install production dependencies only
 RUN npm ci --only=production
 
