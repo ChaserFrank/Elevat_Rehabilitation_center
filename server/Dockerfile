@@ -1,12 +1,8 @@
-#This is my initial docker file:
-# Use Node.js 18 Alpine for smaller image size
-FROM node:18-alpine3.15
+# Use Debian-based Node.js for full compatibility
+FROM node:18-slim
 
 # Set working directory
 WORKDIR /app
-
-# Add OpenSSL if needed
-RUN apk add --no-cache openssl1.1
 
 # Copy source code
 COPY . .
