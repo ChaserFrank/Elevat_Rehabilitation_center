@@ -1,0 +1,101 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id                String      @id @default(uuid())
+  name              String
+  email             String      @unique
+  password          String
+  role              String      @default("user")
+  createdAt         DateTime    @default(now())
+  updatedAt         DateTime    @updatedAt
+  appointments      Appointment[]
+  testimonials      Testimonial[]
+  passwordResetToken String?
+  passwordResetExpires DateTime?
+}
+
+model Session {
+  id                String      @id @default(uuid())
+  title             String
+  description       String
+  shortDescription  String?
+  duration          Int         @default(60) // Duration in minutes
+  image             String?
+  benefits          String[]    @default([])
+  category          String?
+  availability      Json?       // Serialized availability data
+  isActive          Boolean     @default(true)
+  createdAt         DateTime    @default(now())
+  updatedAt         DateTime    @updatedAt
+}
+
+model Appointment {
+  id                String      @id @default(uuid())
+  ticketNumber      String      @unique
+  userId            String
+  serviceId         Int?
+  service           String      // Service title
+  scheduledFor      DateTime
+  notes             String?
+  status            String      @default("confirmed") // confirmed, attended, missed, cancelled
+  createdAt         DateTime    @default(now())
+  updatedAt         DateTime    @updatedAt
+  user              User        @relation(fields: [userId], references: [id])
+}
+
+model Blog {
+  id                String      @id @default(uuid())
+  title             String
+  content           String      @db.Text
+  snippet           String
+  author            String
+  category          String
+  imageUrl          String
+  readTime          String?
+  isPublished       Boolean     @default(false)
+  createdAt         DateTime    @default(now())
+  updatedAt         DateTime    @updatedAt
+}
+
+model Testimonial {
+  id                String      @id @default(uuid())
+  userId            String
+  message           String
+  rating            Int
+  isApproved        Boolean     @default(false)
+  createdAt         DateTime    @default(now())
+  updatedAt         DateTime    @updatedAt
+  user              User        @relation(fields: [userId], references: [id])
+}
+
+model FAQ {
+  id                String      @id @default(uuid())
+  question          String
+  answer            String
+  category          String
+  userSubmitted     Boolean     @default(false)
+  isPublished       Boolean     @default(true)
+  createdAt         DateTime    @default(now())
+  updatedAt         DateTime    @updatedAt
+}
+
+model ContactMessage {
+  id                String      @id @default(uuid())
+  name              String
+  email             String
+  phone             String?
+  subject           String
+  message           String
+  isRead            Boolean     @default(false)
+  createdAt         DateTime    @default(now())
+}
