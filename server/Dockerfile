@@ -35,7 +35,7 @@ HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
     CMD node healthcheck.js
 
 # Generate Prisma client
-RUN npx prisma generate
+RUN npx prisma generate --schema=prisma/schema.prisma
 
 # Start the application
 CMD ["npm", "start"]
