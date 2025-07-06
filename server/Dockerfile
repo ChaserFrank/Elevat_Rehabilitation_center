@@ -1,6 +1,8 @@
 # Use Node.js 18 Alpine for smaller image size
 FROM node:18-alpine
 
+COPY src/server/prisma ./src/server/prisma
+
 # Set working directory
 WORKDIR /app
 
