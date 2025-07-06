@@ -8,14 +8,12 @@ pnpm-debug.log*
 lerna-debug.log*
 
 .env
+node_modules
 dist
 dist-ssr
 *.local
 
-# Ignore everything in node_modules...
-node_modules/
-
-# ...except Prisma client
+# Allow Prisma client files in node_modules
 !node_modules/.prisma/
 !node_modules/@prisma/
 !node_modules/@prisma/client/
