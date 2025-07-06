@@ -1,24 +1,26 @@
 # Use Node.js 18 Alpine for smaller image size
 FROM node:18-alpine
 
-# Copy the prisma schema into the right path
-COPY server/prisma ./server/prisma
-
-# Copy the full server code (after schema is in place)
-COPY server ./server
-
 # Set working directory
 WORKDIR /app
+
+# Add OpenSSL if needed
+# RUN apk add --no-cache openssl1.1-compat
+
 
 # Copy package files
 COPY package*.json ./
 RUN npm install
 
-# Install dependencies
-RUN npm ci --only=production
+# Install dependencies and generate Prisma client
+RUN npm install
+RUN npx prisma generate --schema=prisma/schema.prisma
 
 # Copy source code
 COPY . .
+
+# Install dependencies
+RUN npm ci --only=production
 
 # Build the React frontend
 RUN npm run build
@@ -41,9 +43,6 @@ EXPOSE 5000
 # Health check
 HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
     CMD node healthcheck.js
-
-# Generate Prisma client
-RUN npx prisma generate --schema=prisma/schema.prisma
 
 # Start the application
 CMD ["npm", "start"]
