@@ -1,7 +1,11 @@
 # Use Node.js 18 Alpine for smaller image size
 FROM node:18-alpine
 
-COPY prisma ./prisma 
+# Copy the prisma schema into the right path
+COPY server/prisma ./server/prisma
+
+# Copy the full server code (after schema is in place)
+COPY server ./server
 
 # Set working directory
 WORKDIR /app
