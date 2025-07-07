@@ -8,7 +8,7 @@ export default defineConfig({
     exclude: ['lucide-react'],
   },
   build: {
-    outDir: '../server/dist',
+    outDir: 'dist',
     assetsDir: 'assets',
     sourcemap: false,
     minify: 'terser',
