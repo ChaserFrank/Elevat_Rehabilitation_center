@@ -30,7 +30,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 // The dist directory is at the same level as this file
-const distPath = path.join(__dirname, 'dist');
+const distPath = path.resolve(__dirname, './dist');
 
 // Set up middleware
 app.use(cors({
@@ -82,7 +82,7 @@ app.get('/api/health', (req, res) => {
 
 // Serve React app for all non-API routes (SPA routing)
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '../../dist/index.html'));
+  res.sendFile(path.join(distpath, 'index.html'));
 });
 
 // Error handling middleware
