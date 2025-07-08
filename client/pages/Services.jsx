@@ -17,7 +17,7 @@ function Services() {
     const fetchServices = async () => {
       try {
         const response = await api.get('/services');
-        setServices(response.data);
+        setServices(response.data.data || []);  // safe fallback
         setLoading(false);
       } catch (error) {
         console.error('Error fetching services:', error);
