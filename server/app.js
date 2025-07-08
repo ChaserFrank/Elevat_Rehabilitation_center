@@ -29,6 +29,9 @@ const app = express();
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
+// The dist directory is at the same level as this file
+const distPath = path.join(__dirname, 'dist');
+
 // Set up middleware
 app.use(cors({
   origin: process.env.FRONTEND_URL || true,
@@ -54,7 +57,7 @@ app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 
 // Serve static files from the React app build
-app.use(express.static(path.join(__dirname, '../../dist')));
+app.use(express.static(distPath));
 
 // API routes
 app.use('/api/auth', authRoutes);
