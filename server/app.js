@@ -82,7 +82,7 @@ app.get('/api/health', (req, res) => {
 
 // Serve React app for all non-API routes (SPA routing)
 app.get('*', (req, res) => {
-  res.sendFile(path.join(distpath, 'index.html'));
+  res.sendFile(path.join(distPath, 'index.html'));
 });
 
 // Error handling middleware
