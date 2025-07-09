@@ -2,7 +2,7 @@ import axios from 'axios';
 
 // Create axios instance with default config
 const api = axios.create({
-  baseURL: import.meta.env.VITE_API_URL || '/api', // Use relative path for same domain
+  baseURL: import.meta.env.VITE_API_URL || 'https://api.elevatrehabilitationcenter.org/api',
   headers: {
     'Content-Type': 'application/json'
   }
