@@ -3,8 +3,6 @@ import cors from 'cors';
 import helmet from 'helmet';
 import morgan from 'morgan';
 import dotenv from 'dotenv';
-import path from 'path';
-import { fileURLToPath } from 'url';
 
 // Route imports
 import authRoutes from './routes/authRoutes.js';
@@ -16,48 +14,28 @@ import testimonialRoutes from './routes/testimonialRoutes.js';
 import contactRoutes from './routes/contactRoutes.js';
 import adminRoutes from './routes/adminRoutes.js';
 
-// Middleware imports
+// Middleware
 import { errorHandler } from './middleware/errorHandler.js';
 
-// Initialize dotenv
+// Init env
 dotenv.config();
 
-// Create Express app
+// Init app
 const app = express();
 
-// Get current directory
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
-// The dist directory is at the same level as this file
-const distPath = path.resolve(__dirname, './dist');
-
-// Set up middleware
+// Middleware
 app.use(cors({
-  origin: process.env.FRONTEND_URL || true,
+  origin: process.env.FRONTEND_URL || '*',
   credentials: true
 }));
 
-// Configure helmet for production
 app.use(helmet({
-  contentSecurityPolicy: {
-    directives: {
-      defaultSrc: ["'self'"],
-      styleSrc: ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com"],
-      fontSrc: ["'self'", "https://fonts.gstatic.com"],
-      imgSrc: ["'self'", "data:", "https:", "blob:"],
-      scriptSrc: ["'self'"],
-      connectSrc: ["'self'"],
-    },
-  },
+  contentSecurityPolicy: false, // Optional: Disable if causing CORS issues
 }));
 
 app.use(morgan(process.env.NODE_ENV === 'production' ? 'combined' : 'dev'));
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
-
-// Serve static files from the React app build
-app.use(express.static(distPath));
 
 // API routes
 app.use('/api/auth', authRoutes);
@@ -80,12 +58,12 @@ app.get('/api/health', (req, res) => {
   });
 });
 
-// Serve React app for all non-API routes (SPA routing)
-app.get('*', (req, res) => {
-  res.sendFile(path.join(distPath, 'index.html'));
+// Optional: Friendly root message
+app.get('/', (req, res) => {
+  res.send('Elevat Rehabilitation Center API is live!');
 });
 
-// Error handling middleware
+// Error handler
 app.use(errorHandler);
 
 export default app;
