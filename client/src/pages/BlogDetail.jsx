@@ -120,7 +120,7 @@ function BlogDetail() {
         };
         
         setBlog(sampleBlog);
-        document.title = `${sampleBlog.title} | RehabCare Blog`;
+        document.title = `${sampleBlog.title} | Elevat Rehabilitation Center Blog`;
         
         // Sample related blogs
         const sampleRelatedBlogs = [

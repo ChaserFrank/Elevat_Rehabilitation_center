@@ -1,0 +1,5 @@
+# Redirect API calls to backend service
+/api/*  https://elevatrehabilitationcenter.onrender.com/api/:splat  200
+
+# SPA routing - serve index.html for all other routes
+/*    /index.html   200
