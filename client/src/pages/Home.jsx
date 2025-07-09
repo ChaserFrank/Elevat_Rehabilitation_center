@@ -40,7 +40,7 @@ function Home() {
             id: 2,
             title: 'Addiction Recovery',
             description: 'Comprehensive programs to overcome addiction and build sustainable recovery.',
-            image: '/Addiction.jpeg'
+            image: 'https://i.pinimg.com/736x/86/7e/94/867e945bc6eb6ab0bb759cfbadc5a8c9.jpg'
           },
           {
             id: 3,
