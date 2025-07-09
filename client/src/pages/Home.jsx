@@ -40,7 +40,7 @@ function Home() {
             id: 2,
             title: 'Addiction Recovery',
             description: 'Comprehensive programs to overcome addiction and build sustainable recovery.',
-            image: '/public/Addiction.jpeg'
+            image: '/Addiction.jpeg'
           },
           {
             id: 3,
