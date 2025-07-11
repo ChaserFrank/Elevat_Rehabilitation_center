@@ -1,4 +1,4 @@
-import { useState, useContext } from 'react';
+import { useState, useContext, useEffect } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -17,57 +17,51 @@ const schema = yup.object({
 function Login() {
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [loginError, setLoginError] = useState('');
+  
   const { login } = useContext(AuthContext);
   const navigate = useNavigate();
   const location = useLocation();
-  
-  const { register, handleSubmit, formState: { errors } } = useForm({
+
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors }
+  } = useForm({
     resolver: yupResolver(schema)
   });
-  
-  // Check for message from location state
+
+  // Clear login error when user changes input
+  useEffect(() => {
+    setLoginError('');
+  }, [watch('email'), watch('password')]);
+
+  // Get message or redirect path from location state
   const message = location.state?.message;
-  
+  const redirectPath = location.state?.from || '/';
+
   const onSubmit = async (data) => {
     setIsLoading(true);
     try {
-      // In a real app, this would be an API call to your backend
-      // For now, we'll simulate a successful login
       const response = await axios.post('/api/auth/login', data);
-      
-      /* login(response.data.user, response.data.token);
-      toast.success('Login successful!'); */
-      
+      login(response.data.user, response.data.token);
+      toast.success('Login successful!');
+
       // Redirect based on user role
       if (response.data.user.role === 'admin') {
         navigate('/admin');
       } else {
-        navigate('/');
+        navigate(redirectPath);
       }
     } catch (error) {
       console.error('Login error:', error);
-      /* // For development, simulate login (remove in production)
-      const userData = {
-        id: '1',
-        name: 'John Doe',
-        email: data.email,
-        role: data.email.includes('admin') ? 'admin' : 'user'
-      };
-      const token = 'sample-jwt-token';
-      
-      login(userData, token);
-      toast.success('Development mode: Login successful!'); */
-      
-      if (userData.role === 'admin') {
-        navigate('/admin');
-      } else {
-        navigate('/');
-      }
+      setLoginError('Invalid email or password');
     } finally {
       setIsLoading(false);
     }
   };
-  
+
   return (
     <div className="min-h-screen py-20 bg-gray-50">
       <div className="container">
@@ -82,7 +76,7 @@ function Login() {
                 </div>
               )}
             </div>
-            
+
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
               <div>
                 <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
@@ -99,7 +93,7 @@ function Login() {
                   <p className="mt-1 text-sm text-red-600">{errors.email.message}</p>
                 )}
               </div>
-              
+
               <div>
                 <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-1">
                   Password
@@ -128,7 +122,7 @@ function Login() {
                   <p className="mt-1 text-sm text-red-600">{errors.password.message}</p>
                 )}
               </div>
-              
+
               <div className="flex items-center justify-between">
                 <div className="flex items-center">
                   <input
@@ -141,15 +135,12 @@ function Login() {
                     Remember me
                   </label>
                 </div>
-                
-                <Link
-                  to="/forgot-password"
-                  className="text-sm text-blue-600 hover:text-blue-800"
-                >
+
+                <Link to="/forgot-password" className="text-sm text-blue-600 hover:text-blue-800">
                   Forgot password?
                 </Link>
               </div>
-              
+
               <button
                 type="submit"
                 disabled={isLoading}
@@ -165,8 +156,12 @@ function Login() {
                   </span>
                 ) : 'Sign In'}
               </button>
+
+              {loginError && (
+                <p className="text-red-500 text-sm mt-2 text-center">{loginError}</p>
+              )}
             </form>
-            
+
             <div className="mt-6 text-center">
               <p className="text-sm text-gray-600">
                 Don't have an account?{' '}
