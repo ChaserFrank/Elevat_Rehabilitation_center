@@ -16,7 +16,7 @@ function Dashboard() {
   
   useEffect(() => {
     // Update the page title
-    document.title = 'Admin Dashboard | RehabCare';
+    document.title = 'Admin Dashboard | Elevat Rehabilitation Center';
     
     // Fetch dashboard data
     const fetchDashboardData = async () => {
