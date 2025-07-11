@@ -7,6 +7,7 @@ import dotenv from 'dotenv';
 // Route imports
 import authRoutes from './routes/authRoutes.js';
 import appointmentRoutes from './routes/appointmentRoutes.js';
+import servicesRoutes from './routes/servicesRoutes.js';
 import blogRoutes from './routes/blogRoutes.js';
 import sessionRoutes from './routes/sessionRoutes.js';
 import faqRoutes from './routes/faqRoutes.js';
@@ -40,6 +41,7 @@ app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 // API routes
 app.use('/api/auth', authRoutes);
 app.use('/api/appointments', appointmentRoutes);
+app.use('/api/services', servicesRoutes);
 app.use('/api/blogs', blogRoutes);
 app.use('/api/sessions', sessionRoutes);
 app.use('/api/faqs', faqRoutes);

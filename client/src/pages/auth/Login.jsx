@@ -43,6 +43,7 @@ function Login() {
 
   const onSubmit = async (data) => {
     setIsLoading(true);
+    setCustomError('');
     try {
       const response = await axios.post('/api/auth/login', data);
       login(response.data.user, response.data.token);
@@ -52,7 +53,7 @@ function Login() {
       if (response.data.user.role === 'admin') {
         navigate('/admin');
       } else {
-        navigate(redirectPath);
+        navigate('/');
       }
     } catch (error) {
       console.error('Login error:', error);
@@ -157,8 +158,8 @@ function Login() {
                 ) : 'Sign In'}
               </button>
 
-              {loginError && (
-                <p className="text-red-500 text-sm mt-2 text-center">{loginError}</p>
+              {customError && (
+                <p className="text-red-500 text-sm mt-2 text-center">{customError}</p>
               )}
             </form>
 
