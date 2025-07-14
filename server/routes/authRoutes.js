@@ -1,6 +1,6 @@
 import express from 'express';
 import { register, login, forgotPassword, resetPassword, verify } from '../controllers/authController.js';
-import { protect } from '../middleware/authMiddleware.js';
+// import { protect } from '../middleware/authMiddleware.js';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import { PrismaClient } from '@prisma/client';
