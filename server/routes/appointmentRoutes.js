@@ -11,7 +11,7 @@ import { authenticateToken, requireAdmin } from '../middleware/authMiddleware.js
 const router = express.Router();
 
 // Public routes
-router.get('/available-times', requireUser, getAvailableTimes);
+router.get('/available-times', getAvailableTimes);
 
 // Protected routes
 router.use(protect);
