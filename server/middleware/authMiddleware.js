@@ -2,61 +2,76 @@ import jwt from 'jsonwebtoken';
 import prisma from '../prisma/client.js';
 import { ApiError } from './errorHandler.js';
 
+const prisma = new PrismaClient();
+
 export const generateToken = (userId) => {
   return jwt.sign({ userId }, process.env.JWT_SECRET, {
     expiresIn: '30d'
   });
 };
 
-export const protect = async (req, res, next) => {
+// Middleware to authenticate JWT token
+export const authenticateToken = async (req, res, next) => {
   try {
-    let token;
-    
-    // Get token from Authorization header
-    if (req.headers.authorization && req.headers.authorization.startsWith('Bearer')) {
-      token = req.headers.authorization.split(' ')[1];
-    }
-    
-    // Check if token exists
+    const authHeader = req.headers['authorization'];
+    const token = authHeader && authHeader.split(' ')[1]; // Bearer TOKEN
+
     if (!token) {
-      return next(ApiError.unauthorized('Not authorized, no token provided'));
-    }
-    
-    try {
-      // Verify token
-      const decoded = jwt.verify(token, process.env.JWT_SECRET);
-      
-      // Get user from database
-      const user = await prisma.user.findUnique({
-        where: { id: decoded.userId },
-        select: {
-          id: true,
-          name: true,
-          email: true,
-          role: true,
-          createdAt: true
-        }
+      return res.status(401).json({
+        success: false,
+        message: 'Access token required'
       });
-      
-      if (!user) {
-        return next(ApiError.unauthorized('User not found'));
-      }
-      
-      // Attach user to request
-      req.user = user;
-      next();
-    } catch (error) {
-      return next(ApiError.unauthorized('Not authorized, token verification failed'));
     }
+
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    
+    // Get user from database to ensure they still exist
+    const user = await prisma.user.findUnique({
+      where: { id: decoded.userId },
+      select: {
+        id: true,
+        name: true,
+        email: true,
+        role: true
+      }
+    });
+
+    if (!user) {
+      return res.status(401).json({
+        success: false,
+        message: 'User not found'
+      });
+    }
+
+    req.user = user;
+    next();
   } catch (error) {
-    next(error);
+    console.error('Auth middleware error:', error);
+    return res.status(403).json({
+      success: false,
+      message: 'Invalid or expired token'
+    });
   }
 };
 
-export const admin = (req, res, next) => {
-  if (req.user && req.user.role === 'admin') {
-    next();
-  } else {
-    next(ApiError.forbidden('Not authorized as admin'));
+// Middleware to require admin role
+export const requireAdmin = (req, res, next) => {
+  if (req.user.role !== 'admin') {
+    return res.status(403).json({
+      success: false,
+      message: 'Admin access required'
+    });
   }
+  next();
+};
+
+// Middleware to require user role (authenticated user)
+export const requireUser = (req, res, next) => {
+  if (!req.user) {
+    return res.status(401).json({
+      success: false,
+      message: 'Authentication required'
+    });
+  }
+  next();
 };
