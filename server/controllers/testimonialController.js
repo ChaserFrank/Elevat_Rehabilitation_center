@@ -157,3 +157,36 @@ export const deleteTestimonial = asyncHandler(async (req, res) => {
     message: 'Testimonial deleted successfully'
   });
 });
+
+/**
+ * @desc    Get a single testimonial by ID
+ * @route   GET /api/testimonials/:id
+ * @access  Public
+ */
+export const getTestimonialById = asyncHandler(async (req, res) => {
+  const { id } = req.params;
+
+  const testimonial = await prisma.testimonial.findUnique({
+    where: { id },
+    include: {
+      user: {
+        select: {
+          name: true
+        }
+      }
+    }
+  });
+
+  if (!testimonial || !testimonial.isApproved) {
+    throw ApiError.notFound('Testimonial not found or not approved');
+  }
+
+  res.json({
+    id: testimonial.id,
+    message: testimonial.message,
+    rating: testimonial.rating,
+    name: testimonial.user.name,
+    date: testimonial.createdAt,
+    createdAt: testimonial.createdAt
+  });
+});
