@@ -4,7 +4,7 @@ import { protect } from '../middleware/authMiddleware.js';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import { PrismaClient } from '@prisma/client';
-import { authenticateToken } from '../middleware/auth.js';
+import { authenticateToken } from '../middleware/authMiddleware.js';
 
 const router = express.Router();
 const prisma = new PrismaClient();

@@ -9,7 +9,7 @@ import {
   toggleServiceStatus,
   getAllServicesAdmin
 } from '../controllers/servicesController.js';
-import { authenticateToken, requireAdmin } from '../middleware/auth.js';
+import { authenticateToken, requireAdmin } from '../middleware/authMiddleware.js';
 
 const router = express.Router();
 
