@@ -2,7 +2,7 @@ import jwt from 'jsonwebtoken';
 import prisma from '../prisma/client.js';
 import { ApiError } from './errorHandler.js';
 
-const prisma = new PrismaClient();
+// const prisma = new PrismaClient();
 
 export const generateToken = (userId) => {
   return jwt.sign({ userId }, process.env.JWT_SECRET, {

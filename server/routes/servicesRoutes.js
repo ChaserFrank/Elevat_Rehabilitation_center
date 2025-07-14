@@ -8,7 +8,7 @@ import {
   deleteService,
   toggleServiceStatus,
   getAllServicesAdmin
-} from '../controllers/servicesController.js';
+} from '../controllers/serviceController.js';
 import { authenticateToken, requireAdmin } from '../middleware/authMiddleware.js';
 
 const router = express.Router();
