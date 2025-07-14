@@ -6,7 +6,8 @@ import {
   approveTestimonial,
   deleteTestimonial
 } from '../controllers/testimonialController.js';
-import { protect, admin } from '../middleware/authMiddleware.js';
+import { authenticateToken, requireAdmin } from '../middleware/authMiddleware.js';
+//import { protect, admin } from '../middleware/authMiddleware.js';
 
 const router = express.Router();
 
