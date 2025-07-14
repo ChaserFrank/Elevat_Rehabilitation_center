@@ -1,14 +1,7 @@
 import jwt from 'jsonwebtoken';
-import prisma from '../prisma/client.js';
-import { ApiError } from './errorHandler.js';
+import { PrismaClient } from '@prisma/client';
 
-// const prisma = new PrismaClient();
-
-export const generateToken = (userId) => {
-  return jwt.sign({ userId }, process.env.JWT_SECRET, {
-    expiresIn: '30d'
-  });
-};
+const prisma = new PrismaClient();
 
 // Middleware to authenticate JWT token
 export const authenticateToken = async (req, res, next) => {

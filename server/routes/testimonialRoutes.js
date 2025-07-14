@@ -12,15 +12,17 @@ const router = express.Router();
 
 // Public routes
 router.get('/', getTestimonials);
+router.get('/:id', getTestimonialById);
 
 // Protected routes
-router.use(protect);
-router.post('/', createTestimonial);
+//router.use(protect);
+router.post('/', authenticateToken, createTestimonial);
 
 // Admin routes
 router.use(admin);
-router.get('/admin', getAllTestimonials);
-router.patch('/:id/approve', approveTestimonial);
-router.delete('/:id', deleteTestimonial);
+router.get('/admin', authenticateToken, requireAdmin, getAllTestimonials);
+router.put('/:id', authenticateToken, requireAdmin, updateTestimonial);
+router.patch('/:id/approve', authenticateToken, requireAdmin, approveTestimonial);
+router.delete('/:id', authenticateToken, requireAdmin, deleteTestimonial);
 
 export default router;
