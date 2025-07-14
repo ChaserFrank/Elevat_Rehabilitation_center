@@ -6,14 +6,14 @@ import {
   approveTestimonial,
   deleteTestimonial
 } from '../controllers/testimonialController.js';
-import { authenticateToken, requireAdmin } from '../middleware/authMiddleware.js';
+import { authenticateToken, requireAdmin, requireUser } from '../middleware/authMiddleware.js';
 //import { protect, admin } from '../middleware/authMiddleware.js';
 
 const router = express.Router();
 
 // Public routes
-router.get('/', getTestimonials);
-router.get('/:id', getTestimonialById);
+router.get('/', requireUser, getTestimonials);
+router.get('/:id', requireUser, getTestimonialById);
 
 // Protected routes
 //router.use(protect);

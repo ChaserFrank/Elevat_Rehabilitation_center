@@ -8,7 +8,8 @@ import {
   deleteBlog,
   getBlogCategories
 } from '../controllers/blogController.js';
-import { protect, admin } from '../middleware/authMiddleware.js';
+import { authenticateToken, requireAdmin } from '../middleware/authMiddleware.js';
+//import { protect, admin } from '../middleware/authMiddleware.js';
 
 const router = express.Router();
 
@@ -19,10 +20,10 @@ router.get('/related/:id', getRelatedBlogs);
 router.get('/:id', getBlogById);
 
 // Protected admin routes
-router.use(protect);
+//router.use(protect);
 router.use(admin);
-router.post('/', createBlog);
-router.put('/:id', updateBlog);
-router.delete('/:id', deleteBlog);
+router.post('/', authenticateToken, requireAdmin, createBlog);
+router.put('/:id', authenticateToken, requireAdmin, updateBlog);
+router.delete('/:id', authenticateToken, requireAdmin, deleteBlog);
 
 export default router;

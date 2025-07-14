@@ -5,17 +5,18 @@ import {
   getUserAppointments, 
   cancelAppointment 
 } from '../controllers/appointmentController.js';
-import { protect } from '../middleware/authMiddleware.js';
+import { authenticateToken, requireAdmin } from '../middleware/authMiddleware.js';
+//import { protect } from '../middleware/authMiddleware.js';
 
 const router = express.Router();
 
 // Public routes
-router.get('/available-times', getAvailableTimes);
+router.get('/available-times', requireUser, getAvailableTimes);
 
 // Protected routes
 router.use(protect);
-router.post('/', createAppointment);
-router.get('/my-appointments', getUserAppointments);
-router.patch('/:id/cancel', cancelAppointment);
+router.post('/', authenticateToken, requireAdmin, createAppointment);
+router.get('/my-appointments', authenticateToken, requireAdmin, getUserAppointments);
+router.patch('/:id/cancel', authenticateToken, requireAdmin, cancelAppointment);
 
 export default router;

@@ -6,7 +6,8 @@ import {
   updateFAQ, 
   deleteFAQ 
 } from '../controllers/faqController.js';
-import { protect, admin } from '../middleware/authMiddleware.js';
+import { authenticateToken, requireAdmin } from '../middleware/authMiddleware.js';
+//import { protect, admin } from '../middleware/authMiddleware.js';
 
 const router = express.Router();
 
@@ -15,10 +16,10 @@ router.get('/', getFAQs);
 router.post('/submit', submitFAQ);
 
 // Protected admin routes
-router.use(protect);
+//router.use(protect);
 router.use(admin);
-router.post('/', createFAQ);
-router.put('/:id', updateFAQ);
-router.delete('/:id', deleteFAQ);
+router.post('/', authenticateToken, requireAdmin, createFAQ);
+router.put('/:id', authenticateToken, requireAdmin, updateFAQ);
+router.delete('/:id', authenticateToken, requireAdmin, deleteFAQ);
 
 export default router;

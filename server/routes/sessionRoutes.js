@@ -6,7 +6,8 @@ import {
   updateSession, 
   deleteSession 
 } from '../controllers/sessionController.js';
-import { protect, admin } from '../middleware/authMiddleware.js';
+import { authenticateToken, requireAdmin } from '../middleware/authMiddleware.js';
+//import { protect, admin } from '../middleware/authMiddleware.js';
 
 const router = express.Router();
 
@@ -15,10 +16,10 @@ router.get('/', getSessions);
 router.get('/:id', getSessionById);
 
 // Protected admin routes
-router.use(protect);
+//router.use(protect);
 router.use(admin);
-router.post('/', createSession);
-router.put('/:id', updateSession);
-router.delete('/:id', deleteSession);
+router.post('/', authenticateToken, requireAdmin, createSession);
+router.put('/:id', authenticateToken, requireAdmin, updateSession);
+router.delete('/:id', authenticateToken, requireAdmin, deleteSession);
 
 export default router;

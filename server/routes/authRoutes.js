@@ -16,7 +16,7 @@ router.post('/forgot-password', forgotPassword);
 router.post('/reset-password/:token', resetPassword);
 
 // Protected routes
-router.get('/verify', protect, verify); // Protect the verify route
+router.get('/verify', authenticateToken, verify); // Protect the verify route
 
 // Register new user
 router.post('/register', async (req, res) => {
