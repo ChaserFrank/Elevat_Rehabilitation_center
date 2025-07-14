@@ -3,6 +3,21 @@ import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
 
+export const generateToken = (user) => {
+  return jwt.sign(
+    {
+      userId: user.id,
+      email: user.email,
+      role: user.role
+    },
+    process.env.JWT_SECRET,
+    {
+      expiresIn: '7d'
+    }
+  );
+};
+
+
 // Middleware to authenticate JWT token
 export const authenticateToken = async (req, res, next) => {
   try {
