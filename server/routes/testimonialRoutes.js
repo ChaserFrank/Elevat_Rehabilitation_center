@@ -1,6 +1,7 @@
 import express from 'express';
 import { 
-  getTestimonials, 
+  getTestimonials,
+  getTestimonialById,
   createTestimonial,
   getAllTestimonials,
   approveTestimonial,
