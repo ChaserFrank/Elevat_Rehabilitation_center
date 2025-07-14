@@ -3,6 +3,7 @@ import axios from 'axios';
 // Create axios instance with default config
 const api = axios.create({
   baseURL: import.meta.env.VITE_API_URL || 'https://api.elevatrehabilitationcenter.org/api',
+  withCredentials: true,
   timeout: 30000,
   headers: {
     'Content-Type': 'application/json'

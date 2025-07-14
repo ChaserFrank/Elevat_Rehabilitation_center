@@ -16,7 +16,7 @@ function Services() {
     // Fetch services
     const fetchServices = async () => {
       try {
-        const response = await api.get('/services');
+        const response = await api.get(`${import.meta.env.VITE_API_URL}/services`);
         setServices(response.data.data || []);  // safe fallback
         setLoading(false);
       } catch (error) {
