@@ -4,7 +4,6 @@ import {
   createTestimonial,
   getAllTestimonials,
   approveTestimonial,
-  getTestimonialById,
   deleteTestimonial
 } from '../controllers/testimonialController.js';
 import { authenticateToken, requireAdmin, requireUser } from '../middleware/authMiddleware.js';
