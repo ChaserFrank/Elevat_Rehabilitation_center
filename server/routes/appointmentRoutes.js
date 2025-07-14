@@ -14,7 +14,7 @@ const router = express.Router();
 router.get('/available-times', getAvailableTimes);
 
 // Protected routes
-router.use(protect);
+// router.use(protect);
 router.post('/', authenticateToken, requireAdmin, createAppointment);
 router.get('/my-appointments', authenticateToken, requireAdmin, getUserAppointments);
 router.patch('/:id/cancel', authenticateToken, requireAdmin, cancelAppointment);

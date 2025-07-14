@@ -17,7 +17,7 @@ router.post('/submit', submitFAQ);
 
 // Protected admin routes
 //router.use(protect);
-router.use(admin);
+// router.use(admin);
 router.post('/', authenticateToken, requireAdmin, createFAQ);
 router.put('/:id', authenticateToken, requireAdmin, updateFAQ);
 router.delete('/:id', authenticateToken, requireAdmin, deleteFAQ);

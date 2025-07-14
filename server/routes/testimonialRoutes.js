@@ -21,7 +21,7 @@ router.get('/:id', getTestimonialById);
 router.post('/', authenticateToken, createTestimonial);
 
 // Admin routes
-router.use(admin);
+//router.use(admin);
 router.get('/admin', authenticateToken, requireAdmin, getAllTestimonials);
 router.put('/:id', authenticateToken, requireAdmin, createTestimonial);
 router.patch('/:id/approve', authenticateToken, requireAdmin, approveTestimonial);

@@ -21,7 +21,7 @@ router.get('/:id', getBlogById);
 
 // Protected admin routes
 //router.use(protect);
-router.use(admin);
+// router.use(admin);
 router.post('/', authenticateToken, requireAdmin, createBlog);
 router.put('/:id', authenticateToken, requireAdmin, updateBlog);
 router.delete('/:id', authenticateToken, requireAdmin, deleteBlog);

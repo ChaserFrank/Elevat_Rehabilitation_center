@@ -12,7 +12,7 @@ const router = express.Router();
 
 // All admin routes require authentication and admin role
 //router.use(protect);
-router.use(admin);
+//router.use(admin);
 
 router.get('/dashboard', authenticateToken, requireAdmin, getDashboardStats);
 router.get('/appointments', authenticateToken, requireAdmin, getAllAppointments);

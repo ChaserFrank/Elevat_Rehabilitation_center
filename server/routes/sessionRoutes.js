@@ -17,7 +17,7 @@ router.get('/:id', getSessionById);
 
 // Protected admin routes
 //router.use(protect);
-router.use(admin);
+// router.use(admin);
 router.post('/', authenticateToken, requireAdmin, createSession);
 router.put('/:id', authenticateToken, requireAdmin, updateSession);
 router.delete('/:id', authenticateToken, requireAdmin, deleteSession);

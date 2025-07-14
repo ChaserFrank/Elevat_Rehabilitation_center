@@ -15,7 +15,7 @@ router.post('/', submitContactForm);
 
 // Protected admin routes
 //router.use(protect);
-router.use(admin);
+// router.use(admin);
 router.get('/admin', authenticateToken, requireAdmin, getAllContactMessages);
 router.patch('/:id/read', authenticateToken, requireAdmin, markAsRead);
 router.delete('/:id', authenticateToken, requireAdmin, deleteContactMessage);
