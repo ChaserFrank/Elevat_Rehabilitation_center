@@ -16,7 +16,7 @@ function ManageAppointments() {
   const { register, handleSubmit, setValue, watch } = useForm();
   
   useEffect(() => {
-    document.title = 'Manage Appointments | RehabCare Admin';
+    document.title = 'Manage Appointments | Elavat Rehabilitation Center Admin';
     fetchAppointments();
   }, []);
   

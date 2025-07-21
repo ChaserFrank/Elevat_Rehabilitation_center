@@ -18,6 +18,8 @@ function Login() {
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [loginError, setLoginError] = useState('');
+  const [customError, setCustomError] = useState('');
+
   
   const { login } = useContext(AuthContext);
   const navigate = useNavigate();

@@ -21,8 +21,8 @@ function Home() {
           api.get('/testimonials')
         ]);
         
-        setServices(servicesRes.data.slice(0, 3));
-        setTestimonials(testimonialsRes.data.slice(0, 5));
+        setServices(servicesRes.data.data.slice(0, 3));
+        setTestimonials(testimonialsRes.data.data.slice(0, 5));
         setLoading(false);
       } catch (error) {
         console.error('Error fetching data:', error);
