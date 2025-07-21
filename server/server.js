@@ -63,6 +63,12 @@ app.get('/api/health', (req, res) => {
   });
 });
 
+const express = require('express');
+//const app = express();
+const authRoutes = require('./routes/authRoutes'); // adjust path
+
+app.use(express.json());
+
 // API Routes
 app.use('/api/auth', authRoutes);
 app.use('/api/services', serviceRoutes);

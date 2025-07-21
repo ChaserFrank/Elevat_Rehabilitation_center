@@ -6,7 +6,8 @@ import jwt from 'jsonwebtoken';
 import { PrismaClient } from '@prisma/client';
 import { authenticateToken } from '../middleware/authMiddleware.js';
 
-const router = express.Router();
+//const router = express.Router();
+const router = require('express').Router();
 const prisma = new PrismaClient();
 
 // Public routes
