@@ -48,11 +48,14 @@ function Login() {
     setCustomError('');
     try {
       const response = await axios.post('/api/auth/login', data);
-      login(response.data.user, response.data.token);
+      const { user, token } = response.data.data;
+      login(user, token);
       toast.success('Login successful!');
+      /* login(response.data.user, response.data.token);
+      toast.success('Login successful!'); */
 
       // Redirect based on user role
-      if (response.data.user.role === 'admin') {
+      if (response.data.data.user.role === 'admin') {
         navigate('/admin');
       } else {
         navigate('/');

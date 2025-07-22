@@ -72,7 +72,7 @@ router.post('/register', async (req, res) => {
 
     res.status(201).json({
       success: true,
-      message: 'User registered successfully',
+      message: 'Login successfull',
       data: {
         user,
         token,
@@ -132,7 +132,7 @@ router.post('/login', async (req, res) => {
     );
      res.status(201).json({
       success: true,
-      message: 'User registered successfully',
+      message: 'Login successfull',
       data: {
         user,
         token,

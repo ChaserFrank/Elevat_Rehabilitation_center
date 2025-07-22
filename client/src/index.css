@@ -4,7 +4,7 @@
 
 @layer base {
   html {
-    font-family: 'Inter', sans-serif;
+    font-family: "Inter", sans-serif;
     scroll-behavior: smooth;
   }
 
@@ -17,43 +17,43 @@
   .container {
     @apply px-4 mx-auto max-w-7xl;
   }
-  
+
   .btn {
     @apply px-6 py-2 rounded-md font-medium transition-all duration-300 inline-flex items-center justify-center;
   }
-  
+
   .btn-primary {
     @apply bg-blue-600 text-white hover:bg-blue-700;
   }
-  
+
   .btn-secondary {
     @apply bg-emerald-600 text-white hover:bg-emerald-700;
   }
-  
+
   .btn-outline {
     @apply border border-blue-600 text-blue-600 hover:bg-blue-50;
   }
-  
+
   .card {
     @apply bg-white rounded-lg shadow-md overflow-hidden;
   }
-  
+
   .input {
     @apply w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent;
   }
-  
+
   .heading-1 {
     @apply text-4xl font-bold text-gray-900 md:text-5xl lg:text-6xl;
   }
-  
+
   .heading-2 {
     @apply text-3xl font-bold text-gray-900 md:text-4xl;
   }
-  
+
   .heading-3 {
     @apply text-2xl font-bold text-gray-900 md:text-3xl;
   }
-  
+
   .paragraph {
     @apply text-base text-gray-600 leading-relaxed md:text-lg;
   }
