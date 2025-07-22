@@ -21,9 +21,6 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 5000;
 const prisma = new PrismaClient();
-//const express = require('express');
-const authRoutes = require('./routes/authRoutes'); // adjust path
-
 
 // Security middleware
 app.use(helmet({
