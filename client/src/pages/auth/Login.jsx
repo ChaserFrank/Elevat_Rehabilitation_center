@@ -47,7 +47,7 @@ function Login() {
     setIsLoading(true);
     setCustomError('');
     try {
-      const response = await axios.post('/api/auth/login', data);
+      const response = await axios.post('https://api.elevatrehabilitationcenter.org/api/auth/login', data);
       const { user, token } = response.data.data;
       login(user, token);
       toast.success('Login successful!');

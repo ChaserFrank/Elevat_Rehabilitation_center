@@ -74,7 +74,7 @@ router.post('/register', async (req, res) => {
       success: true,
       message: 'Login successfull',
       data: {
-        user,
+        user: userWithoutPassword,
         token,
         redirectTo: user.role === 'admin' ? '/admin' : '/'
       }
